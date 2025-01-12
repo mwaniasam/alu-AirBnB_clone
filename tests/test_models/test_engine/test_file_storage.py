@@ -53,3 +53,35 @@ class TestFileStorage(unittest.TestCase):
         (should raise AttributeError)."""
         with self.assertRaises(AttributeError):
             models.storage.new(None)
+
+    def test_save_and_reload(self):
+    """Test saving objects to a file and then reloading them"""
+    obj1 = BaseModel()
+    obj2 = BaseModel()
+    models.storage.new(obj1)
+    models.storage.new(obj2)
+    models.storage.save()
+
+    # Create a new storage instance to simulate reloading
+    new_storage = FileStorage()
+    new_storage.reload()
+
+    # Check if the reloaded objects match the original objects
+    self.assertTrue(new_storage.all().get("BaseModel.{}".format(obj1.id)) is not None)
+    self.assertTrue(new_storage.all().get("BaseModel.{}".format(obj2.id)) is not None)
+
+    def test_save_to_file(self):
+        """Test saving objects to a file and check if the file is created"""
+        obj = BaseModel()
+        models.storage.new(obj)
+        models.storage.save()
+        self.assertTrue(os.path.exists(models.storage.FileStorage_file_path))
+
+    def test_reload_empty_file(self):
+        """Test reloading when the file is empty or does not exist"""
+        with self.assertRaises(TypeError):
+            models.storage()
+            models.storage.reload()
+
+if _name_ == '_main_':
+    unittest.main()
