@@ -55,20 +55,20 @@ class TestFileStorage(unittest.TestCase):
             models.storage.new(None)
 
     def test_save_and_reload(self):
-    """Test saving objects to a file and then reloading them"""
-    obj1 = BaseModel()
-    obj2 = BaseModel()
-    models.storage.new(obj1)
-    models.storage.new(obj2)
-    models.storage.save()
+        """Test saving objects to a file and then reloading them"""
+        obj1 = BaseModel()
+        obj2 = BaseModel()
+        models.storage.new(obj1)
+        models.storage.new(obj2)
+        models.storage.save()
 
-    # Create a new storage instance to simulate reloading
-    new_storage = FileStorage()
-    new_storage.reload()
+        # Create a new storage instance to simulate reloading
+        new_storage = FileStorage()
+        new_storage.reload()
 
-    # Check if the reloaded objects match the original objects
-    self.assertTrue(new_storage.all().get("BaseModel.{}".format(obj1.id)) is not None)
-    self.assertTrue(new_storage.all().get("BaseModel.{}".format(obj2.id)) is not None)
+        # Check if the reloaded objects match the original objects
+        self.assertTrue(new_storage.all().get("BaseModel.{}".format(obj1.id)) is not None)
+        self.assertTrue(new_storage.all().get("BaseModel.{}".format(obj2.id)) is not None)
 
     def test_save_to_file(self):
         """Test saving objects to a file and check if the file is created"""
@@ -83,5 +83,5 @@ class TestFileStorage(unittest.TestCase):
             models.storage()
             models.storage.reload()
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     unittest.main()
