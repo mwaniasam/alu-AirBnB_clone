@@ -10,9 +10,9 @@ import cmd
 
 class HBNBCommand(cmd.Cmd):
     """
-    HBNB command-line interpreter
+    A simple command-line interpreter for HBNB command-line interpreter
     """
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
 
     def do_quit(self, arg):
         """
@@ -32,6 +32,12 @@ class HBNBCommand(cmd.Cmd):
         """
         print()
         return True
+
+    def emptyline(self):
+        """
+        Do nothing when an empty line is entered
+        """
+        pass
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
