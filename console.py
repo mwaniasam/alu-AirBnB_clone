@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 
 import cmd
+"""
+HBNB command-line interpreter
+"""
 
 class HBNBCommand(cmd.Cmd):
     """HBNB command-line interpreter"""
