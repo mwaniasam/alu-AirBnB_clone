@@ -11,14 +11,14 @@ import cmd
 import shlex
 from models.base_model import BaseModel
 from models import storage
-
+from models.user import User
 
 class HBNBCommand(cmd.Cmd):
     """
     A command-line interpreter for managing HBNB objects.
     """
     prompt = "(hbnb) "
-    valid_classes = {"BaseModel": BaseModel}
+    valid_classes = {"BaseModel": BaseModel, "User": User}
 
     def do_quit(self, arg):
         """
