@@ -1,5 +1,4 @@
-#!/usr/bin/ python3
-
+#!/usr/bin/python3
 """
 HBNB Command-Line Interpreter Module
 
@@ -10,44 +9,45 @@ HBNB objects.
 import cmd
 import shlex
 from models.base_model import BaseModel
-from models import storage
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models import storage
+
 
 class HBNBCommand(cmd.Cmd):
     """
     A command-line interpreter for managing HBNB objects.
     """
     prompt = "(hbnb) "
-    valid_classes = {"BaseModel": BaseModel, "User": User}
+    valid_classes = {
+        "BaseModel": BaseModel,
+        "User": User,
+        "State": State,
+        "City": City,
+        "Amenity": Amenity,
+        "Place": Place,
+        "Review": Review
+    }
 
     def do_quit(self, arg):
-        """
-        Exit the program.
-        Usage: quit
-        """
+        """Exit the program. Usage: quit"""
         return True
 
-    def help_quit(self):
-        print("Exit the program. Usage: quit")
-
     def do_EOF(self, arg):
-        """
-        Exit the program on EOF (Ctrl+D).
-        """
+        """Exit the program on EOF (Ctrl+D)."""
         print()
         return True
 
     def emptyline(self):
-        """
-        Overrides the default behavior to do nothing on an empty line.
-        """
+        """Overrides the default behavior to do nothing on an empty line."""
         pass
 
     def do_create(self, arg):
-        """
-        Create a new instance of a valid class and save it.
-        Usage: create <class_name>
-        """
+        """Create a new instance of a valid class and save it."""
         args = shlex.split(arg)
 
         if not args:
@@ -64,10 +64,7 @@ class HBNBCommand(cmd.Cmd):
         print(instance.id)
 
     def do_show(self, arg):
-        """
-        Display the string representation of an instance.
-        Usage: show <class_name> <id>
-        """
+        """Display the string representation of an instance."""
         args = shlex.split(arg)
 
         if not args:
@@ -92,10 +89,7 @@ class HBNBCommand(cmd.Cmd):
             print(instance)
 
     def do_destroy(self, arg):
-        """
-        Delete an instance by class name and id.
-        Usage: destroy <class_name> <id>
-        """
+        """Delete an instance by class name and id."""
         args = shlex.split(arg)
 
         if not args:
@@ -115,15 +109,11 @@ class HBNBCommand(cmd.Cmd):
         if key in storage.all():
             del storage.all()[key]
             storage.save()
-            print(f"Deleted instance {key}")
         else:
             print("** no instance found **")
 
     def do_all(self, arg):
-        """
-        Print string representations of all instances, optionally filtered by class.
-        Usage: all [<class_name>]
-        """
+        """Print string representations of all instances."""
         args = shlex.split(arg)
         class_name = args[0] if args else None
 
@@ -136,10 +126,7 @@ class HBNBCommand(cmd.Cmd):
         print(instances)
 
     def do_update(self, arg):
-        """
-        Update an instance's attribute.
-        Usage: update <class_name> <id> <attribute_name> <attribute_value>
-        """
+        """Update an instance's attribute."""
         args = shlex.split(arg)
 
         if len(args) < 1:
